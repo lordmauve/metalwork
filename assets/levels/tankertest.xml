@@ -1,0 +1,9 @@
+<World w="4" h="3" default="DefaultTile">
+	<Title>Tanker Test</Title>
+	<WaterTile at="1,0" />
+	<HoleTile at="3,2" />
+	<Freezer at="1,1" cube="true"/>
+	<TrackDozer at="0,2" orient="E"/>
+
+	<TankerRobot at="2, 1"/>
+</World>

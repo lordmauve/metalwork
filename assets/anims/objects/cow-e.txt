@@ -1,0 +1,4 @@
+base: objects/cow-e
+frames: 5
+offsets: -40,-52 -40,-52 -40,-49 -40,-48 -40,-48
+

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<World w="4" h="4">
+	<Title>Car Test</Title>
+
+	<EmptyTile at="0,0"/>
+	<PavementTile at="1,0" orient="EW"/>
+	<PavementTile at="2,0" orient="EW"/>
+	<PavementTile at="3,0" orient="EW"/>
+	<PavementTile at="0,1" orient="NS"/>
+	<RoadCornerTile at="1,1" orient="ES"/>
+	<RoadTile at="2,1" orient="EW"/>
+	<RoadTile at="3,1" orient="EW"/>
+	<PavementTile at="0,2" orient="NS"/>
+	<RoadCrossingTile at="1,2" orient="NS"/>
+	<PavementTile at="2,2" orient="NS"/>
+	<PavementTile at="3,2" orient="EW"/>
+	<PavementTile at="0,3" orient="NS"/>
+	<RoadTile at="1,3" orient="NS"/>
+	<PavementTile at="2,3" orient="NS"/>
+	<EmptyTile at="3,3"/>
+
+	<TrackDozer at="1,1"/>
+
+</World>

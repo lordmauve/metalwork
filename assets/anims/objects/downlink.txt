@@ -1,0 +1,14 @@
+base: objects/downlink
+frames: 1
+offsets: -28,-51
+
+base: flare-red
+name: bulb
+frames: 1
+offsets: -18,-70
+
+base: flare-green
+name: bulb-green
+frames: 1
+offsets: -18,-71
+

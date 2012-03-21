@@ -1,0 +1,4 @@
+base: objects/freezer
+frames: 7
+offsets: -38,-67 -38,-67 -38,-67 -38,-67 -38,-67 -38,-67 -38,-67
+

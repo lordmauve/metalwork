@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<World w="2" h="2">
+	<Title>Unnamed level</Title>
+
+	<DefaultTile at="0,0"/>
+	<GrassHoleTile at="1,0" filled="None"/>
+	<EmptyTile at="0,1"/>
+	<GrassHoleTile at="1,1" filled="None"/>
+
+	<TrackDozer at="0,0" description="None"/>
+
+</World>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<World w="5" h="3">
+	<Title>Z-Order Test</Title>
+
+	<SandTile at="0,0" alt="1"/>
+	<SandTile at="1,0"/>
+	<SandTile at="2,0"/>
+	<SandTile at="3,0"/>
+	<EmptyTile at="4,0"/>
+	<EmptyTile at="0,1"/>
+	<SandTile at="1,1"/>
+	<SandTile at="2,1" alt="1"/>
+	<SandTile at="3,1"/>
+	<SandTile at="4,1" alt="1"/>
+	<EmptyTile at="0,2"/>
+	<SandTile at="1,2"/>
+	<SandTile at="2,2"/>
+	<SandTile at="3,2"/>
+	<EmptyTile at="4,2"/>
+
+	<TrackDozer at="1,2"/>
+	<PalmTree at="4,1" alt="1"/>
+
+</World>

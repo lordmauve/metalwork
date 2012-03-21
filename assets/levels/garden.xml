@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<World w="2" h="5">
+	<Title>In the Garden</Title>
+
+	<GrassTile at="0,0"/>
+	<GrassTile at="1,0"/>
+	<GrassTile at="0,1"/>
+	<GrassTile at="1,1"/>
+	<GrassTile at="0,2"/>
+	<GrassTile at="1,2"/>
+	<EmptyTile at="0,3"/>
+	<GrassHoleTile at="1,3"/>
+	<EmptyTile at="0,4"/>
+	<GrassTile at="1,4"/>
+
+	<TrackDozer at="1,0"/>
+	<Ice at="1,1"/>
+	<Cow at="0,2"/>
+	<FruitTree at="0,1"/>
+	<TankerRobot at="1,4"/>
+
+</World>

@@ -1,0 +1,7 @@
+base: robots/base
+angles: 12
+offsets: 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0
+
+base: bulb
+angles: 1
+offsets: 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0

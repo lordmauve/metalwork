@@ -1,0 +1,4 @@
+base: objects/bucket-floating
+frames: 4
+offsets: -34,-24 -34,-23 -34,-22 -34,-23
+

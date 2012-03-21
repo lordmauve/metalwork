@@ -1,0 +1,19 @@
+base: robots/dozer
+frames: 12
+offsets: -41,-45 -36,-40 -37,-35 -42,-34 -37,-32 -46,-32 -56,-34 -53,-35 -52,-40 -57,-45 -45,-42 -36,-42
+
+base: bulb
+name: bulb
+frames: 1
+offsets: -8,-35 -8,-35 -8,-35 -8,-35 -8,-35 -8,-35 -8,-35 -8,-35 -8,-35 -8,-35 -8,-35 -8,-35
+
+base: flare-white
+name: headlamp1
+frames: 1
+offsets: - - 7,-23 -6,-19 -22,-17 -39,-21 -47,-28 -49,-38 - - - -
+
+base: flare-white
+name: headlamp2
+frames: 1
+offsets: - - 14,-37 12,-30 2,-22 -13,-18 -29,-18 -43,-24 - - - -
+

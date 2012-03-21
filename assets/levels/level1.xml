@@ -1,0 +1,50 @@
+<World w="6" h="4" default="EmptyTile">
+	<Title>Demo/Testbed</Title>
+	<LiftTile at="1,0" group="lift-1"/>
+	<HoleTile at="2,1" />
+	<DefaultTile at="3,1" />
+	<DefaultTile at="0,2" />
+	<DefaultTile at="1,2" />
+	<LiftTile at="0,1" group="lift-2" open="open"/>
+	<DefaultTile at="1,3" />
+	<DefaultTile at="0,3" />
+	<ButtonTile at="1,1" trigger="lift-1"/>
+	<EmptyTile at="0,0" />
+	<DefaultTile at="0,0" alt="1" />
+
+	<DefaultTile at="2, 3" alt="1" />
+	<Downlink at="2,3" alt="1" trigger="lift-2"/>
+
+	<DefaultTile at="4,0" />
+	<DefaultTile at="4,1" />
+	<DefaultTile at="4,2" />
+	<DefaultTile at="4,3" />
+	<DefaultTile at="5,0" />
+	<DefaultTile at="5,1" />
+	<DefaultTile at="5,2" />
+	<LinkTile at="5,3" />
+	<HoleTile at="5,0" />
+
+	<TrackDozer at="1,3" orient="S" description="introduce-dozer"/>
+	<Box at="1,2"/>
+	<Freezer at="0,2" description="introduce-freezer"/>
+	<HoverRobot at="3,1" orient="E" description="introduce-hover"/>
+	<UplinkRobot at="5,2" orient="S"/>
+
+	<TankerRobot at="4, 3"/>
+
+	<WaterTile at="3,0" alt="1" />
+	<WaterTile at="2,2" alt="0" />
+	<WaterTile at="3,3" alt="0" />
+
+	<Phrase id="__start__">Welcome to Robots!
+I am Dr. Werner Mannheim, inventor of ze R³ robot!</Phrase>
+	<Phrase id="__start__">Click on one of ze R³ robots to start learnink how to control it.</Phrase>
+	<Phrase id="introduce-dozer">This is an R³ Dozer™. You can use the Dozer to push objects.</Phrase>
+	<Phrase id="introduce-dozer">Try pushing ze box over there.</Phrase>
+	<Phrase id="introduce-hover">This is an R³ Hovercraft™. Zis robot is amphibious zerefore it can cross
+ze blue water squares.</Phrase>
+	<Phrase id="lift-1">Excellent! You can use both objects and robots to operate buttons.</Phrase>
+	<Phrase id="introduce-freezer">Ze box you are seeink here is a rapid heat exchange unit. A freezer!</Phrase>
+	<Phrase id="introduce-freezer">If you fill zis machine with water it will be producink ice cubes!</Phrase>
+</World>

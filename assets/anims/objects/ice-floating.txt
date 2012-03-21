@@ -1,0 +1,4 @@
+base: objects/floating-ice
+frames: 4
+offsets: -34,-24 -34,-25 -34,-24 -34,-23
+
