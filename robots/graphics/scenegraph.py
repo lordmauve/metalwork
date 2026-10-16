@@ -56,9 +56,9 @@ class OperationSet(object):
 	def __eq__(self, ano):
 		e = hash(self) == hash(ano)
 		if e:
-			print "eq"
+			print("eq")
 		else:
-			print "ne"
+			print("ne")
 		return e
 
 	def simple_ops(self):
@@ -183,7 +183,7 @@ class OptimisingSceneGraph(SceneGraph):
 			else:
 				rs.append(cop.bounds())
 
-		for op in lid_map.values():
+		for op in list(lid_map.values()):
 			rs.append(op.bounds())
 
 		return self.build_rect_list(rs)
@@ -207,7 +207,5 @@ class OptimisingSceneGraph(SceneGraph):
 
 		self.screen.set_clip(None)
 
-		for r in dirty_rects:
-			pygame.draw.rect(self.screen, (255, 0, 0), r, 1)
 
 		self.next_frame()

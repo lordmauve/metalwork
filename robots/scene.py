@@ -5,7 +5,7 @@ import math
 import pygame
 from pygame.locals import *
 
-from world import World
+from .world import World
 
 ALT_INCREMENT = 35
 IMAGES_ROOT = 'assets/images'
@@ -23,6 +23,15 @@ class Actor(object):
 		self.alt = alt
 		self.display_alt = None
 		self.description = description
+
+	def __deepcopy__(self, memo):
+		# Sprite surfaces are shared assets; only gameplay state is copied.
+		from copy import deepcopy
+		clone = self.__class__.__new__(self.__class__)
+		memo[id(self)] = clone
+		for key, value in self.__dict__.items():
+			setattr(clone, key, value if isinstance(value, pygame.Surface) else deepcopy(value, memo))
+		return clone
 
 	def play(self, name):
 		"""Play a named animation.
@@ -179,7 +188,7 @@ class Scene(object):
 		but then we would have to work around circular import problems."""
 
 		from robots import actions
-		for cls in actions.__dict__.values():
+		for cls in list(actions.__dict__.values()):
 			try:
 				is_act = issubclass(cls, actions.Action)
 			except TypeError:
@@ -198,7 +207,7 @@ class Scene(object):
 		for x, y, tile, draw_south, draw_east in self.world.get_tiles():
 			if tile is not None:
 				ts.append((self.draw_order(x, y, tile.alt, Scene.TILE), Scene.TILE, (x, y, tile.alt), tile, draw_south, draw_east))
-		ts.sort()
+		ts.sort(key=lambda item: item[:2])
 		self.tilecache = ts
 		return ts
 
@@ -238,7 +247,7 @@ class Scene(object):
 		"""Draw the world."""
 		scenegraph.fill(0)
 		s = self.tiles() + self.actors()
-		s.sort()
+		s.sort(key=lambda item: item[:2])
 		for i in s:
 			if i[1] == Scene.TILE:
 				self.draw_tile(scenegraph, i[2:])
@@ -265,7 +274,7 @@ class Scene(object):
 		"through" anything else."""
 		from robots.actions import Action
 		actors = [a for a in self.actors() if self.viewport.screen_bounds(a[-1]).collidepoint(pos)]
-		actors.sort()
+		actors.sort(key=lambda item: item[:2])
 		actors.reverse()# detect clicks in reverse draw order
 		actions = []
 		objects = []

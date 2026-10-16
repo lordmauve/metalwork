@@ -4,7 +4,7 @@ import codecs
 from xml.sax.saxutils import escape
 from xml.parsers import expat
 
-from world import World
+from .world import World
 
 OBJECTS = {}
 
@@ -24,18 +24,19 @@ class WorldLoader(object):
 		self.title = fname
 		self.phrases = {}
 		self.phrase_id = None
-		self.parser.ParseFile(open(fname, 'r'))
+		with open(fname, 'rb') as source:
+			self.parser.ParseFile(source)
 
 	def object_for_name(self, name):
 		try:
 			return OBJECTS[name]
-		except AttributeError:
+		except KeyError:
 			raise ValueError('Unknown object name %s' % name)
 
 	def start_element(self, name, attrs):
-		from robot_objects import Robot
-		from tiles import Tile
-		from scene import Actor
+		from .robot_objects import Robot
+		from .tiles import Tile
+		from .scene import Actor
 
 		self.stack.append(name)
 		if name == 'World':
@@ -100,7 +101,7 @@ class WorldSaver(object):
 	def __init__(self, world):
 		self.world = world
 		self.type_map = {}
-		for name, ob in OBJECTS.items():
+		for name, ob in list(OBJECTS.items()):
 			cls, attrs = ob
 			self.type_map[cls] = name, attrs
 
@@ -108,21 +109,21 @@ class WorldSaver(object):
 		self.world.pack()
 		encoder = codecs.getwriter(self.ENCODING)
 		tmp = filename + '.tmp'
-		f = open(tmp, 'w')
+		f = open(tmp, 'wb')
 		self.write_world(encoder(f))
 		f.close()
 		os.rename(tmp, filename)
 
 	def write_world(self, f):
-		print >>f, '<?xml version="1.0" encoding="%s" ?>' % self.ENCODING
-		print >>f, '<World w="%d" h="%d">' % (self.world.w, self.world.h)
+		print('<?xml version="1.0" encoding="%s" ?>' % self.ENCODING, file=f)
+		print('<World w="%d" h="%d">' % (self.world.w, self.world.h), file=f)
 		if self.world.title:
-			print >>f, '\t<Title>%s</Title>' % escape(self.world.title)
-			print >>f
+			print('\t<Title>%s</Title>' % escape(self.world.title), file=f)
+			print(file=f)
 
 		self.write_tiles(f)
 		self.write_actors(f)
-		print >>f, '</World>'
+		print('</World>', file=f)
 
 	def attrs(self, obj, pos=None):
 		if pos is None:
@@ -138,16 +139,16 @@ class WorldSaver(object):
 			for k in extra_attrs:
 				v = getattr(obj, k)
 				if v:
-					attrs += [(k, unicode(v))]
+					attrs += [(k, str(v))]
 		
 		return ' '.join([escape(name)] + ['%s="%s"' % (escape(k), escape(v)) for k, v in attrs])
 		
 	def write_tiles(self, f):
 		for t, pos in self.world.enumerate_tiles():
-			print >>f, '\t<%s/>' % (self.attrs(t, pos))
-		print >>f
+			print('\t<%s/>' % (self.attrs(t, pos)), file=f)
+		print(file=f)
 
 	def write_actors(self, f):
 		for a in self.world.actors:
-			print >>f, '\t<%s/>' % (self.attrs(a))
-		print >>f
+			print('\t<%s/>' % (self.attrs(a)), file=f)
+		print(file=f)

@@ -37,7 +37,8 @@ class BaseGameState(object):
 	DRAG_CURSOR = pygame.cursors.load_xbm('assets/cursors/move.xbm', 'assets/cursors/move-mask.xbm')
 
 	def set_cursor(self, cursor):
-		pygame.mouse.set_cursor(*cursor)
+		if pygame.display.get_driver() != 'dummy':
+			pygame.mouse.set_cursor(*cursor)
 
 	def onkey(self, key):
 		try:

@@ -1,5 +1,5 @@
 import math
-from compass import *
+from .compass import *
 
 """This module contains "Animations", which are animated controllers for world state.
 

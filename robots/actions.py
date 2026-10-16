@@ -1,13 +1,13 @@
 from pygame import Rect
-from scene import Actor, load_sprite
+from .scene import Actor, load_sprite
 
 from robots.graphics.animation import AnimatedSprite
-from animations import *
-from compass import *
+from .animations import *
+from .compass import *
 
-from tiles import Tile
+from .tiles import Tile
 
-from robot_objects import TankerRobot
+from .robot_objects import TankerRobot
 
 
 class Action(Actor):
@@ -110,7 +110,7 @@ class PushAction(Action):
 		dist = 1
 		if target.friction_distance() > 1:
 			dest = self.target_dest
-			for i in xrange(1, target.friction_distance()):
+			for i in range(1, target.friction_distance()):
 				tile = world.get(*dest)
 				try:
 					acc = tile.accepts_object

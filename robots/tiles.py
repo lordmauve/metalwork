@@ -1,11 +1,11 @@
 import random 
 
-from scene import load_sprite, ALT_INCREMENT
-from robot_objects import *
-from objects import *
-from animations import *
+from .scene import load_sprite, ALT_INCREMENT
+from .robot_objects import *
+from .objects import *
+from .animations import *
 
-from worldloader import register
+from .worldloader import register
 
 class Tile(object):
 	sprite = 'tile'
@@ -125,7 +125,7 @@ class SandTile(Tile):
 class FillableTile(Tile):
 	def __init__(self, alt=0, filled=None):
 		self.alt = alt
-		self.filled = filled
+		self.filled = None if filled in (None, 'None', '') else filled
 
 	def fill(self, fill):
 		self.filled = fill
@@ -133,7 +133,11 @@ class FillableTile(Tile):
 
 	def draw(self, screen, x, y, draw_south, draw_east, wx, wy):
 		super(FillableTile, self).draw(screen, x, y, draw_south, draw_east, wx, wy)
-		if self.filled:
+		if isinstance(self.filled, str):
+			sprite = self.sprites.get('filled-' + self.filled)
+			if sprite is not None:
+				screen.draw_center(sprite, (x, y))
+		elif self.filled:
 			self.filled.draw(screen, x, y)
 
 	def accepts_object(self, object):
@@ -254,7 +258,7 @@ class HoleTile(FillableTile):
 
 	def __init__(self, alt=0, filled=None):
 		self.alt = alt
-		self.filled = filled
+		self.filled = None if filled in (None, 'None', '') else filled
 
 	def can_actor_enter(self, actor, rel_alt):
 		if rel_alt != 0:
@@ -343,7 +347,7 @@ class ButtonTile(Tile):
 			'edge-e-bottom': 'tiles/default-e-bottom.png',
 		}
 
-	def __init__(self, alt, trigger=None):
+	def __init__(self, alt=0, trigger=None):
 		self.alt = alt
 		if trigger is None:
 			trigger = str(id(self))

@@ -1,4 +1,4 @@
-from animations import *
+from .animations import *
 from copy import deepcopy
 
 class WorldObject(object):
@@ -24,7 +24,7 @@ class GraphicsLoader(object):
 
 	def load(self, cls):
 		"""Load the assets for class cls, if they are not already loaded"""
-		from scene import load_sprite
+		from .scene import load_sprite
 		from robots.graphics.animation import AnimatedSprite
 
 		if cls not in self.loaded_classes:
@@ -44,7 +44,7 @@ class GraphicsLoader(object):
 				except AttributeError:
 					pass
 				else:
-					for k, s in sprites.items():
+					for k, s in list(sprites.items()):
 						cls.sprites[k] = load_sprite(s)
 
 				try:
@@ -52,7 +52,7 @@ class GraphicsLoader(object):
 				except AttributeError:
 					pass
 				else:
-					for k, a in anims.items():
+					for k, a in list(anims.items()):
 						cls.anims[k] = AnimatedSprite.load(a + '.txt')
 				cls._assets_loaded = True
 
@@ -67,7 +67,7 @@ class World(GraphicsLoader):
 	"""The world is a 3D grid-based model."""
 	def __init__(self, w, h, tiles, actors, phrases, title='Unnamed level'):
 		super(World, self).__init__()
-		from tiles import EmptyTile
+		from .tiles import EmptyTile
 		self.w = w
 		self.h = h
 		self.actors = actors
@@ -139,8 +139,8 @@ class World(GraphicsLoader):
 
 	@staticmethod
 	def create_blank(w=1, h=1):
-		from robot_objects import TrackDozer
-		from tiles import DefaultTile
+		from .robot_objects import TrackDozer
+		from .tiles import DefaultTile
 
 		b = DefaultTile()
 		actors = [
@@ -217,14 +217,14 @@ class World(GraphicsLoader):
 		return self.tiles[y * self.w + x]
 
 	def get(self, x, y):
-		from tiles import EmptyTile
+		from .tiles import EmptyTile
 		try:
 			return self[x, y]
 		except IndexError:
 			return EmptyTile()
 
 	def __setitem__(self, coord, tile):
-		from tiles import EmptyTile
+		from .tiles import EmptyTile
 		x, y = coord
 		if x < 0 or x >= self.w or y < 0 or y >= self.h:
 			if x < 0:
@@ -254,8 +254,7 @@ class World(GraphicsLoader):
 		self.tiles[y * self.w + x] = tile
 		tc = tile.__class__
 		if tc not in self.loaded_classes:
-			tc.load_sprites()
-			self.loaded_classes.add(tc)
+			self.load(tc)
 		self._add_tile(tile, (x, y))
 
 		pos = x, y
@@ -292,7 +291,7 @@ class World(GraphicsLoader):
 		draw_south and draw_east are the number of edge layers to draw downwards.
 		"""
 		def tile_tuple(x, y, draw_south, draw_east):
-			from tiles import EmptyTile
+			from .tiles import EmptyTile
 			tile = self[x, y]
 			try:
 				tile_s = self[x, y + 1]
@@ -344,9 +343,9 @@ class World(GraphicsLoader):
 
 	def update(self, scene, hud):
 		"""Updates the world, possibly adding animations to the scene."""
-		from objects import Box, Freezer
-		from tiles import WaterTile, HoleTile, SunkBoxTile, LinkTile
-		from robot_objects import UplinkRobot
+		from .objects import Box, Freezer
+		from .tiles import WaterTile, HoleTile, SunkBoxTile, LinkTile
+		from .robot_objects import UplinkRobot
 
 		triggers_hit = set() # record which triggers hit on this update so we can work out which ones weren't
 		for a in self.actors:

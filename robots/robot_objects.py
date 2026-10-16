@@ -1,11 +1,11 @@
 import random
 from pygame import Rect
-from worldloader import register
+from .worldloader import register
 
-from scene import Actor, load_sprite
+from .scene import Actor, load_sprite
 
-from graphics.animation import AnimatedSprite
-from compass import *
+from .graphics.animation import AnimatedSprite
+from .compass import *
 
 class Robot(Actor):
 	class Assets:
