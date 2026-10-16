@@ -66,6 +66,10 @@ class AnimationLayer(object):
 
 
 class AnimatedSprite(object):
+	def __deepcopy__(self, memo):
+		# Animation definitions are shared; Instance holds playback state.
+		return self
+
 	class Instance(object):
 		"""An instance of an animated sprite.
 	
@@ -202,7 +206,7 @@ class AnimatedSprite(object):
 		name = None
 
 		for l in open(os.path.join(ANIMATIONS_ROOT, fname), 'r'):
-			mo = re.match(r'^(base|name|frames|offsets):\s*(.*)', l)
+			mo = re.match(r'^(base|name|frames|angles|offsets):\s*(.*)', l)
 			if not mo:
 				continue
 			k = mo.group(1)
@@ -216,7 +220,7 @@ class AnimatedSprite(object):
 				offs = None
 				angles = 0
 				name = None
-			elif k == 'frames':
+			elif k in ('frames', 'angles'):
 				frames = int(v)
 			elif k == 'name':
 				name = v

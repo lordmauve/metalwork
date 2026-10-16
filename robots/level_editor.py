@@ -12,7 +12,7 @@ from robots.gamestate import BaseGameState
 from robots.scene import load_sprite, ALT_INCREMENT
 from robots.robot_objects import Robot
 from robots import tiles
-from worldloader import OBJECTS
+from .worldloader import OBJECTS
 
 
 class HUDButton(object):
@@ -46,7 +46,7 @@ class LevelEditorHUD(object):
 		self.robots_list = []
 		self.objects_list = []
 
-		for t, params in OBJECTS.values():
+		for t, params in list(OBJECTS.values()):
 			if issubclass(t, Robot):
 				self.robots_list.append(t)
 			elif issubclass(t, tiles.Tile):
@@ -137,10 +137,10 @@ class LevelEditorHUD(object):
 		self.jump_items(-1)
 
 	def set_prototype_object(self, obj):
-		self.world.load(obj.__class__)
 		self.prototype_object = obj
 		if obj is None:
 			return
+		self.world.load(obj.__class__)
 		obj.play(None)
 
 	def select_robots(self):
@@ -310,4 +310,6 @@ class LevelEditorGameState(BaseGameState):
 	def save_level(self):
 		from robots.worldloader import WorldSaver
 		ws = WorldSaver(self.scene.world)
+		from pathlib import Path
+		Path('user-levels').mkdir(exist_ok=True)
 		ws.save('user-levels/test.xml')

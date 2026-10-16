@@ -1,8 +1,8 @@
 import random
 
 from pygame import Rect
-from scene import Actor, load_sprite
-from graphics.animation import AnimatedSprite
+from .scene import Actor, load_sprite
+from .graphics.animation import AnimatedSprite
 
 from robots.compass import *
 from robots.worldloader import register
@@ -38,8 +38,7 @@ class AutoRegisterMetaClass(type):
 		return t
 
 
-class Scenery(PassiveObject):
-	__metaclass__ = AutoRegisterMetaClass
+class Scenery(PassiveObject, metaclass=AutoRegisterMetaClass):
 	@classmethod
 	def load_sprites(cls):
 		if hasattr(cls, 'SPRITE'):

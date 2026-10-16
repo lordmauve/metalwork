@@ -1,8 +1,7 @@
 import sys
 import os.path
 import re
-import new
-from cStringIO import StringIO
+from io import StringIO
 
 import pygame
 from pygame.locals import *
@@ -15,7 +14,7 @@ class EditableAnimatedSprite(AnimatedSprite):
 		self.fname = os.path.join(ANIMATIONS_ROOT, fname)
 		self.currentlayer = 0
 		self.frame = 0
-		self.layer_name_reverse = dict([(l, name) for name, l in self.layer_names.items()])
+		self.layer_name_reverse = dict([(l, name) for name, l in list(self.layer_names.items())])
 
 	def change_frame(self, dr):
 		self.frame = self.frame + dr
@@ -55,10 +54,10 @@ class EditableAnimatedSprite(AnimatedSprite):
 	def save(self):
 		f = StringIO()
 		for i, l in enumerate(self.layers):
-			print >>f, 'base:', l.base
+			print('base:', l.base, file=f)
 			if i in self.layer_name_reverse:
-				print >>f, 'name:', self.layer_name_reverse[i]
-			print >>f, 'frames:', l.num_sprites
+				print('name:', self.layer_name_reverse[i], file=f)
+			print('frames:', l.num_sprites, file=f)
 
 			offs = []
 			for x, y, s in l.sprites:
@@ -66,10 +65,10 @@ class EditableAnimatedSprite(AnimatedSprite):
 					offs.append('-')
 				else:
 					offs.append('%d,%d' % (x, y))
-			print >>f, 'offsets:', ' '.join(offs)
+			print('offsets:', ' '.join(offs), file=f)
 
 			
-			print >>f
+			print(file=f)
 		out = open(self.fname, 'w')
 		out.write(f.getvalue())
 		out.close()
@@ -175,9 +174,9 @@ class Editor(object):
 						self.translate(-1, 0)
 					elif key == K_RIGHT:
 						self.translate(1, 0)
-					elif event.unicode == 'z':
+					elif event.str == 'z':
 						self.rotate(-1)
-					elif event.unicode == 'x':
+					elif event.str == 'x':
 						self.rotate(1)
 					elif key == K_TAB:
 						self.next_layer()
@@ -199,7 +198,7 @@ class Editor(object):
 
 if __name__ == '__main__':
 	if len(sys.argv) < 2:
-		print >>sys.stderr, "Usage: python editor.py <animation definition file>"
+		print("Usage: python editor.py <animation definition file>", file=sys.stderr)
 	else:
 		e = Editor(sys.argv[1])
 		e.run()

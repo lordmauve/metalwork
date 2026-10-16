@@ -3,16 +3,16 @@ import sys
 import pygame
 from pygame.locals import *
 
-from actions import *
-from scene import *
-from robot_objects import *
-from objects import *
-from tiles import *
+from .actions import *
+from .scene import *
+from .robot_objects import *
+from .objects import *
+from .tiles import *
 
-from compass import *
+from .compass import *
 
-from world import World
-from worldloader import *
+from .world import World
+from .worldloader import *
 from robots.graphics.scenegraph import OptimisingSceneGraph
 from robots.hud import *
 
@@ -129,7 +129,7 @@ class GameState(BaseGameState):
 			phrase = self.scene.world.phrases[id]
 		except KeyError:
 			if warn_if_missing:
-				print >>sys.stderr, "No such phrase '%s'" % id
+				print("No such phrase '%s'" % id, file=sys.stderr)
 		else:
 			self.hud.show_messages(phrase)
 	
@@ -242,7 +242,7 @@ class DragGesture(object):
 	def relative(self):
 		return self.rel
 
-	def __nonzero__(self):
+	def __bool__(self):
 		"""Returns True if this gesture is large enough to be considered
 		as a drag movement.
 		"""
